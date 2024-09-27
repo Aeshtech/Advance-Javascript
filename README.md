@@ -1,2 +1,5 @@
 # Advance-Javascript
-This repository is created for learning or revise the advance concepts of Javascript with the help of examples. Although it is created by consuming resources from AI models such as ChatGPT and Google Bard, MDN Web Docs, Stack Overflow, W3schools, and some popular YouTube channels but it doesn't guarantee the correctness of any statement !!
+
+Open source repository created for preparing advance Javascript concepts and related best practices. Feel free to use and raise PR to add your learnings in Js environment.
+
+Don't Forget to give star to this repo.
