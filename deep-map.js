@@ -4,11 +4,11 @@
  * @param {Function} transform - The function to apply to each primitive value.
  * @returns {any} - The transformed data structure.
  */
-function deepMap(data, transform) {
+export function deepMap(data, transform) {
   if (Array.isArray(data)) {
     // If data is an array, map over each element
-    return data.map(item => deepMap(item, transform));
-  } else if (data !== null && typeof data === 'object') {
+    return data.map((item) => deepMap(item, transform));
+  } else if (data !== null && typeof data === "object") {
     // If data is an object, map over each key-value pair
     const result = {};
     for (const [key, value] of Object.entries(data)) {
@@ -23,19 +23,18 @@ function deepMap(data, transform) {
 
 // Example usage
 const data = {
-  name: 'John',
+  name: "John",
   age: 30,
   address: {
-    city: 'New York',
+    city: "New York",
     zip: 10001,
-    coordinates: [40.7128, 74.0060]
+    coordinates: [40.7128, 74.006],
   },
-  hobbies: ['reading', 'traveling']
+  hobbies: ["reading", "traveling"],
 };
 
 // Transformation function: e.g., convert all strings to uppercase
-const transform = value => (typeof value === 'string' ? value.toUpperCase() : value);
+const transform = (value) =>
+  typeof value === "string" ? value.toUpperCase() : value;
 
-const transformedData = deepMap(data, transform);
-
-console.log(transformedData);
+export const transformedData = deepMap(data, transform);
