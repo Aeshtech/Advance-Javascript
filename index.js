@@ -1,2 +1,2 @@
-const scripts = [""]; // List your JS files here
+const scripts = ["linkedlist/linkedlist.js"]; // List your JS files here
 addFiles(scripts);
