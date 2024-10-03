@@ -1,0 +1,45 @@
+The Least Recently Used (LRU) cache is a cache eviction policy that removes the least recently accessed 
+item when the cache reaches its capacity.
+
+### Basic Idea:
+
+=>The cache has limited space.
+=>When you access or add something or update something, it becomes the most recently used.
+=>When the cache is full and you need to add something new, the least recently used item gets removed to make space.
+
+### Example Process:
+
+=> Cache capacity: 2 items (maximum size is 2).
+
+Step 1: Add "A" to the cache
+=> Cache: [A]
+=> "A" is added because the cache was empty.
+
+Step 2: Add "B" to the cache
+=>Cache: [B, A]
+=>Now the cache has "B" and "A" (most recently used is at the front, so "B" is now the most recently used).
+
+Step 3: Access "A" (you use "A")
+=>Cache: [A, B]
+=>You accessed "A", so it moves to the front. "B" is now the least recently used.
+
+Step 4: Add "C" to the cache
+=>Cache is full (because its size is 2).
+=>Remove: "B" (because it's the least recently used).
+=>Add: "C" → Cache: [C, A]
+
+Step 5: Access "A" again
+=>Cache: [A, C]
+=>"A" becomes the most recently used, and "C" is now the least recently used.
+
+Step 6: Add "D" to the cache
+=>Cache is full (currently has "A" and "C").
+=>Remove: "C" (it's the least recently used).
+=>Add: "D" → Cache: [D, A]
+
+### Final Cache:
+=> [D, A], where "D" is the most recently used and "A" is still there because it was used more recently than "C" or "B."
+
+### In summary:
+The LRU cache always keeps track of what you’ve used most recently.
+When adding new items to a full cache, the oldest (least recently used) item gets kicked out to make space.
