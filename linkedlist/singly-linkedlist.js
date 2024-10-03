@@ -1,12 +1,8 @@
-//Whenever we need effecient insertion, deletion of elements we use linkedlist
-//since in array we need to shift the elements in deletion and insertion
+/* Whenever we need efficient insertion, deletion of elements at specific pos we use linkedlist since in array we need to shift 
+each elements but, Time Complexity is O(n) same in the array and singly-linkedlist so it depend upon the use-case which to prefer. 
+*/
 
-class Node {
-  constructor(data) {
-    this.data = data;
-    this.next = null;
-  }
-}
+import { Node } from "./node.js";
 
 class SinglyLinkedList {
   head = null; //attribute to keep track of head of the ll
@@ -32,6 +28,12 @@ class SinglyLinkedList {
     }
 
     const newNode = new Node(data);
+
+    //if list is empty
+    if (this.head === null) {
+      this.head = newNode;
+      return this.head;
+    }
 
     //if inserting at head (index = 0)
     if (index === 0) {
