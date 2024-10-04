@@ -31,10 +31,9 @@ class DoublyLinkedList {
     }
 
     const newNode = new DoublyNode(data);
-
     if (index === 0) {
-      // Special case: Inserting at the head
       newNode.next = this.head;
+      //if head not is not null than update its prev pointer
       if (this.head) {
         this.head.prev = newNode;
       }
@@ -51,15 +50,23 @@ class DoublyLinkedList {
 
     if (count === 0) {
       newNode.next = curr.next;
-      if (curr.next) {
-        curr.next.prev = newNode;
-      }
-      newNode.prev = curr;
       curr.next = newNode;
+      newNode.prev = curr;
     } else {
       throw new Error("Index out of bounds");
     }
     return this.head;
+  }
+
+  size() {
+    if (this.head === null) return 0;
+    let curr = this.head;
+    let count = 0;
+    while (curr !== null) {
+      count++;
+      curr = curr.next;
+    }
+    return count;
   }
 
   print() {
@@ -84,7 +91,7 @@ try {
   console.log("Inserting elements at pos 0, 2 and at end of the list:");
   cll.addAtPos("NewNode1", 0);
   cll.addAtPos("NewNode2", 2);
-  cll.addAtPos("NewNode3", 4);
+  cll.addAtPos("NewNode3", cll.size());
   cll.print();
 } catch (error) {
   console.log({ error });
