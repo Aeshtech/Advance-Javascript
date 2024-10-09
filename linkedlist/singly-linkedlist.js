@@ -121,32 +121,34 @@ class SinglyLinkedList {
   }
 }
 
-const ll = new SinglyLinkedList();
+export default SinglyLinkedList;
 
-try {
-  ll.add("Hello");
-  ll.add("World");
-  ll.add(10);
-  ll.add(20);
-  ll.print();
-  console.log({ size: ll.size() });
+// const ll = new SinglyLinkedList();
 
-  console.log("After adding node at pos 0, 2 and at end of list :");
-  ll.addAtPos("NewNode1", 0);
-  ll.addAtPos("NewNode2", 2);
-  ll.addAtPos("NewNode3", ll.size());
-  ll.print();
-  console.log({ size: ll.size() });
+// try {
+//   ll.add("Hello");
+//   ll.add("World");
+//   ll.add(10);
+//   ll.add(20);
+//   ll.print();
+//   console.log({ size: ll.size() });
 
-  console.log("After deleting nodes from pos 0, 1 and end of list :");
-  ll.deleteAtPos(0);
-  ll.deleteAtPos(1);
-  ll.deleteAtPos(ll.size() - 1);
-  ll.print();
-  console.log({ size: ll.size() });
+//   console.log("After adding node at pos 0, 2 and at end of list :");
+//   ll.addAtPos("NewNode1", 0);
+//   ll.addAtPos("NewNode2", 2);
+//   ll.addAtPos("NewNode3", ll.size());
+//   ll.print();
+//   console.log({ size: ll.size() });
 
-  const node = ll.get(1);
-  console.log("Get index 1 ", { data: node.data });
-} catch (error) {
-  console.log(error.message);
-}
+//   console.log("After deleting nodes from pos 0, 1 and end of list :");
+//   ll.deleteAtPos(0);
+//   ll.deleteAtPos(1);
+//   ll.deleteAtPos(ll.size() - 1);
+//   ll.print();
+//   console.log({ size: ll.size() });
+
+//   const node = ll.get(1);
+//   console.log("Get index 1 ", { data: node.data });
+// } catch (error) {
+//   console.log(error.message);
+// }

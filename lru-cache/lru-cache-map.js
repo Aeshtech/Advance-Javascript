@@ -1,58 +1,51 @@
 class LRUCacheMap {
   constructor(capacity) {
-    this.capacity = capacity; // Maximum capacity of the cache
-    this.cache = new Map(); // Map to store the cache data (key-value pairs)
+    this.capacity = capacity;
+    this.cache = new Map();
   }
 
-  // Get the value from the cache for a given key
   get(key) {
-    if (!this.cache.has(key)) {
-      return -1; // If the key is not in the cache, return -1 (indicating a miss)
-    }
-    // If the key exists, we need to move it to the "most recently used" position
     const value = this.cache.get(key);
-    this.cache.delete(key); // Remove the key
+    if (!value) return null;
+    this.cache.delete(key); //remove the key to keep update key pos in the lru map
     this.cache.set(key, value); // Set it again to make it the most recently used
     return value;
   }
 
-  // Add a new key-value pair to the cache
-  put(key, value) {
-    // If the key already exists, delete it first to update its position
+  set(key, value) {
+    //if key already exist remove it first to update the pos
     if (this.cache.has(key)) {
       this.cache.delete(key);
     }
     // If the cache exceeds its capacity, remove the least recently used (first) entry
     if (this.cache.size >= this.capacity) {
-      const leastUsedKey = this.cache.keys().next().value; // Get the first key
-      this.cache.delete(leastUsedKey); // Remove the least used key
+      const leastRecentlyUsedKey = this.cache.keys().next().value;
+      this.cache.delete(leastRecentlyUsedKey);
     }
-    // Add the new key-value pair to the cache
-    this.cache.set(key, value);
+    this.cache.set(key, value); //add the new key value pair
   }
 
   print() {
     const mapAsString = Array.from(this.cache.entries())
-      .map(([key, value]) => `${key}: ${value}`)
+      .map(([key, value]) => `${key} : ${value}`)
       .join(", ");
-    console.log(`{ ${mapAsString} }`);
+    console.log(`{${mapAsString}}`);
   }
 }
 
-// Example usage:
 const cache = new LRUCacheMap(3); // Set a cache capacity of 3
 
-cache.put(1, "A");
+cache.set(1, "A");
 cache.print();
-cache.put(2, "B");
+cache.set(2, "B");
 cache.print();
-cache.put(3, "C");
+cache.set(3, "C");
 cache.print();
-console.log(cache.get(1)); // Output: 'A' (moves 1 to the most recently used position)
+console.log("Get key 1 = ", cache.get(1)); // Output: 'A' (moves 1 to the most recently used position)
 cache.print();
-cache.put(4, "D"); // Removes key 2 (least recently used)
+cache.set(4, "D"); // Removes key 2 (least recently used)
 cache.print();
-console.log(cache.get(2)); // Output: -1 (key 2 was removed)
+console.log("Get key 2 = ", cache.get(2)); // Output: -1 (key 2 was removed)
 cache.print();
-console.log(cache.get(3)); // Output: 'C'
+console.log("Get key 3 = ", cache.get(3)); // Output: 'C'
 cache.print();
