@@ -1,2 +1,2 @@
-const scripts = ["linkedlist/linkedlist.js"]; // List your JS files here
-addFiles(scripts);
+// const scripts = ["linkedlist/singly-linkedlist.js"]; // List your JS files here
+// addFiles(scripts);
