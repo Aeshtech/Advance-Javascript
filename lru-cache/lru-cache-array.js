@@ -14,9 +14,9 @@ class LRUCacheArray {
 
     //remove least used item if cache size greater than equal to capacity
     if (this.cache.length >= this.capacity) {
-      this.cache.pop();
+      this.cache.shift(); //remove first element of array
     }
-    this.cache.unshift(data);
+    this.cache.unshift(data); //add element at first of array
   }
 
   get(index) {
