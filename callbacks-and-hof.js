@@ -33,7 +33,7 @@ Lets' see the same above problem solution using callback:
 */
 
 function fetchDataFromAPI(callback) {
-  // Simulating an asynchronous API call, note: setTimeout is not any asynchorno
+  // Simulating an asynchronous API call
   setTimeout(function () {
     const data = { name: "John", age: 30 };
     callback(data);
