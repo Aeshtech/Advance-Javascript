@@ -9,7 +9,7 @@ function deepEqual(obj1, obj2) {
   if (typeof obj1 !== typeof obj2) return false;
 
   // If both are objects, perform a deep comparison
-  if (typeof obj1 === 'object') {
+  if (typeof obj1 === 'object' || typeof obj2 === 'object') {
     const keys1 = Object.keys(obj1);
     const keys2 = Object.keys(obj2);
 
