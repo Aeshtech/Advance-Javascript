@@ -1,5 +1,6 @@
+//In array we can maintain least recently used (sabse kam use kiye gye elements ko piche rkhna) element in end of array, and most frequent used in starting of array OR Vice-Versa
+
 class LRUCacheArray {
-  // this.capacity =
   constructor(capacity) {
     this.capacity = capacity;
     this.cache = [];
@@ -16,7 +17,7 @@ class LRUCacheArray {
     if (this.cache.length >= this.capacity) {
       this.cache.pop();
     }
-    this.cache.unshift(data);
+    this.cache.unshift(data); //add element at first of array
   }
 
   get(index) {
