@@ -36,9 +36,7 @@ function merge(arr, left, mid, right) {
   }
 }
 
-const arr1 = [34, 7, 23, 32, 5, 62];
-const arr2 = [14, 3, 87, 45, 22, 1];
-const mergedArr = arr1.concat(arr2);
-console.log("Before Sorting :", [...mergedArr]);
-mergeSort(mergedArr, 0, mergedArr.length - 1);
-console.log("After Sorting :", mergedArr);
+const arr = [34, 7, 23, 32, 5, 62, 14, -3, 87, -1, 45, 1, 22];
+console.log("Before Sorting :", [...arr]);
+mergeSort(arr, 0, arr.length - 1);
+console.log("After Sorting :", arr);

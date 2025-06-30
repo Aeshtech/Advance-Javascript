@@ -1,5 +1,4 @@
-const arr = [3, 5, 90, -30, 4, 2, 1];
-//in insertion sort we sort sort the array in phase by comparing element to its already sorted elements
+//Insertion sort, sort the array in phase by comparing element to its already sorted elements
 console.log("Array before sorted = ", arr);
 for (let i = 1; i < arr.length; i++) {
   const currElem = arr[i];
@@ -12,4 +11,7 @@ for (let i = 1; i < arr.length; i++) {
   }
 }
 
-console.log("Array after sorted = ", arr);
+const arr = [34, 7, 23, 32, 5, 62, 14, -3, 87, -1, 45, 1, 22];
+console.log("Before Sorting :", [...arr]);
+quickSort(arr, 0, arr.length - 1);
+console.log("After Sorting :", arr);
