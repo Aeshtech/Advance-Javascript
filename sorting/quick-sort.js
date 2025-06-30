@@ -1,34 +1,29 @@
-const quickSort = (arr, left, right) => {
-  //Do quickSort recursively on partitions until left greater than or equal to right index;
-  if (left < right) {
-    //Partition the given array in such a way so that all smaller or equal elements should be in left
-    //patition of pivot and all greater elements should be right partition of the array
-    const pivotIdx = partition(arr, left, right);
-    //recursively invoke the quickSort on left partition execluding pivot itself
-    quickSort(arr, left, pivotIdx - 1);
-    //recursively invoke the quickSort on right partition execluding pivot itself
-    quickSort(arr, pivotIdx + 1, right);
-  }
-};
+function quickSort(arr, left, right) {
+  if (left >= right) return; //base case
+  //partition the arr such that, elements smaller than pivot are on the left side
+  //and elements greater than the pivot are on the right side and return partition index
+  const pi = partition(arr, left, right);
+  quickSort(arr, left, pi - 1); //Recursively apply quicksort to the left subarray
+  quickSort(arr, pi + 1, right); // Recursively apply quicksort to the right subarray
+}
 
-const partition = (arr, left, right) => {
-  //select last element as pivot
+function partition(arr, left, right) {
+  //select the last element as pivot
   const pivot = arr[right];
-  //special pointer to tell the right place for elements
-  let i = left - 1;
-  //run loop until left less than right index;
+  // pointer where the next smaller/equal element should be placed
+  let i = left;
+
   for (let j = left; j < right; j++) {
-    //if current element is
-    if (arr[j] < pivot) {
-      i++; //increament the i
-      //excluding unnecessary swap operation for the same index of i and j
-      if (i !== j) swap(arr, i, j);
+    //if any element found smaller/equal to pivot, Swap it with element at pointer i, and move i pointer ahead
+    if (arr[j] <= pivot) {
+      swap(arr, i, j);
+      i++;
     }
   }
-  //now swap the pivot element to its right position which is i+1;
-  swap(arr, i + 1, right);
-  return i + 1;
-};
+  //finally swap the pivot element with the element at i
+  swap(arr, i, right);
+  return i;
+}
 
 const swap = (arr, leftIdx, rightIdx) => {
   const temp = arr[leftIdx];
@@ -37,8 +32,9 @@ const swap = (arr, leftIdx, rightIdx) => {
   return arr;
 };
 
-const array = [5, 8, 1, 3, 7, 9, 4, 2, -1, 0];
-console.log("Array before sorting = ", array);
-const right = array.length - 1;
-quickSort(array, 0, right);
-console.log("Array after sorting = ", array);
+const arr1 = [34, 7, 23, 32, 5, 62];
+const arr2 = [14, 3, 87, 45, 22, 1];
+const mergedArr = arr1.concat(arr2);
+console.log("Before Sorting :", [...mergedArr]);
+quickSort(mergedArr, 0, mergedArr.length - 1);
+console.log("After Sorting :", mergedArr);
