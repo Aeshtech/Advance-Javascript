@@ -1,5 +1,5 @@
-//Insertion sort, sort the array in phase by comparing element to its already sorted elements
-console.log("Array before sorted = ", arr);
+//Insertion sort, sort the array by comparing a element in its already sorted elements and then pick next element until end
+
 for (let i = 1; i < arr.length; i++) {
   const currElem = arr[i];
   for (let j = i - 1; j >= 0; j--) {
