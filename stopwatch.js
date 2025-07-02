@@ -1,30 +1,20 @@
-function startStopwatch() {
-  let time = 0; // Time in centiseconds (hundredths of a second)
+function startStopwatch(initialSeconds = 0) {
+  let time = initialSeconds; // Time in seconds
 
   const stopwatchInterval = setInterval(() => {
-    time++; // Increment time by 1 centisecond (100th of a second)
+    time++; // Increment time by 1 second
 
-    // Hours calculation
-    const hours = Math.floor(time / 360000);
+    const hours = Math.floor(time / 3600);
+    const minutes = Math.floor((time % 3600) / 60);
+    const seconds = time % 60;
 
-    // Minutes calculation
-    const minutes = Math.floor((time % 360000) / 6000);
-
-    // Seconds calculation
-    const seconds = Math.floor((time % 6000) / 100);
-
-    // Milliseconds calculation
-    const milliseconds = time % 100;
-
-    // Format time as HH:MM:SS:MS
+    // Format time as HH:MM:SS
     const formattedTime = `${String(hours).padStart(2, "0")}:${String(
       minutes
-    ).padStart(2, "0")}:${String(seconds).padStart(2, "0")}:${String(
-      milliseconds
-    ).padStart(2, "0")}`;
+    ).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
 
     console.log(formattedTime); // Display or update stopwatch time in UI
-  }, 10); // Repeat every 10ms (centisecond)
+  }, 1000); // Repeat every 1000ms (1 second)
 
   // Return function to stop the stopwatch
   return function stopStopwatch() {

@@ -1,9 +1,9 @@
 Array.prototype.myReduce = function (cb, initialValue) {
-  let accumalator = initialValue;
+  let accumulator = initialValue;
   for (let i = 0; i < this.length; i++) {
-    accumalator = accumalator ? cb(accumalator, this[i], i, this) : this[i];
+    accumulator = accumulator ? cb(accumulator, this[i], i, this) : this[i];
   }
-  return accumalator;
+  return accumulator;
 };
 
 const arr = [1, 2, 3, 4];
