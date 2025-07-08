@@ -1,14 +1,15 @@
-function deepCopy(data) {
-  if (Array.isArray(data)) {
-    return data.map(deepCopy);
-  } else if (data !== null && typeof data === "object") {
+function deepCopy(data){
+  if(Array.isArray(data)){
+    return data.map((item)=> deepCopy(item));
+  }else if(data !== null && typeof data === 'object'){
     const result = {};
-    for (const key in data) {
-      result[key] = deepCopy(data[key]);
+    for(let [key, value] of Object.entries(data)){
+      result[key] = deepCopy(value);
     }
     return result;
+  }else{
+  return data;
   }
-  return data; // primitive
 }
 
 // ---------------------OR----------------
