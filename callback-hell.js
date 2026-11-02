@@ -11,21 +11,21 @@ Here's an interesting example of callback hell
 
 function getArticles(numArticles, callback) {
   // Make an API request to get the articles
-  fetch("https://api.example.com/articles?num=20")
+  return fetch("https://api.example.com/articles?num=20")
     .then((response) => response.json())
     .then((articles) => callback(articles));
 }
 
 function getUserData(userId, callback) {
   // Make an API request to get the user data
-  fetch(`https://api.example.com/users/${userId}`)
+  return fetch(`https://api.example.com/users/${userId}`)
     .then((response) => response.json())
     .then((user) => callback(user));
 }
 
 function getAddress(userId, callback) {
   // Make an API request to get the user's address
-  fetch(`https://api.example.com/users/${userId}/address`)
+  return fetch(`https://api.example.com/users/${userId}/address`)
     .then((response) => response.json())
     .then((address) => callback(address));
 }
@@ -52,21 +52,39 @@ Let's see solution firstly using Promises -
  */
 
 // This is the promises code
-const articlesPromise = getArticles();
-const userDataPromise = getUserData(
-  articlesPromise.then((articles) => articles[0].userId)
-);
-const addressPromise = getAddress(userDataPromise.then((user) => user.id));
 
-// Wait for all promises to resolve
+const articlesPromise = getArticles();
+
+const userDataPromise = articlesPromise.then((articles) =>
+  getUserData(articles[0].userId)
+);
+
+const addressPromise = userDataPromise.then((user) =>
+  getAddress(user.id)
+);
+
 Promise.all([articlesPromise, userDataPromise, addressPromise]).then(
   ([articles, user, address]) => {
-    // Do something with the articles, user, and address
+    console.log(articles, user, address);
   }
 );
 
-/* 
+function getArticles(numArticles = 20) {
+  return fetch(`https://api.example.com/articles?num=${numArticles}`)
+    .then((response) => response.json());
+}
 
+function getUserData(userId) {
+  return fetch(`https://api.example.com/users/${userId}`)
+    .then((response) => response.json());
+}
+
+function getAddress(userId) {
+  return fetch(`https://api.example.com/users/${userId}/address`)
+    .then((response) => response.json());
+}
+
+/* 
 This code uses promises to represent the asynchronous operations of getting the articles, user, and address.
 This makes the code more sequential and easier to read and maintain.
 
