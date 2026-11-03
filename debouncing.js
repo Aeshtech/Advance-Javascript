@@ -10,4 +10,14 @@ function debounce(func, wait = 250) { // Default wait time of 250ms
   };
 }
 
+/*
+Visual Walkthrough
+Imagine a user typing "cat" into a search bar:
 
+Plaintext
+User types 'c'   ---> Timer starts (250ms)
+User types 'a'   ---> Previous timer cleared; new timer starts (250ms)
+User types 't'   ---> Previous timer cleared; new timer starts (250ms)
+... (user pauses) ...
+Timer hits 250ms ---> func('cat') finally executes!
+*/
