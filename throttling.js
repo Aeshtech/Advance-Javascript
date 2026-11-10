@@ -2,11 +2,11 @@
    This is useful for events that occur frequently, such as scrolling or resizing, where you only need to respond after a certain interval to maintain performance.
 */
 
-function throttle(func, limit) {
+function throttle(func, timeInterval) {
   let lastCall = 0;
   return function (...args) {
     const now = Date.now();
-    if (now - lastCall >= limit) {
+    if (now - lastCall >= timeInterval) {
       lastCall = now;
       func.apply(this, args);
     }

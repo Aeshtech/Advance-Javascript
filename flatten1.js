@@ -16,7 +16,7 @@ const nestedObject = {
 
 
 function flatten(obj, prefix = "") {
-  let result = {};
+  let result = {};  
 
   for (const key in obj) {
     if (typeof obj[key] === "object" && obj[key] !== null) {
