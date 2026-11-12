@@ -9,117 +9,86 @@ Callback hell creates a pyramid-shaped structure and sometimes also called as py
 Here's an interesting example of callback hell
 */
 
-function getArticles(numArticles, callback) {
-  // Make an API request to get the articles
-  return fetch("https://api.example.com/articles?num=20")
-    .then((response) => response.json())
-    .then((articles) => callback(articles));
+function getUser(userId, callback) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      console.log("Fetched user");
+      const user = { id: userId, username: "alex_dev" };
+      if (typeof callback === "function") callback(user);
+      resolve(user);
+    }, 1000);
+  });
 }
 
-function getUserData(userId, callback) {
-  // Make an API request to get the user data
-  return fetch(`https://api.example.com/users/${userId}`)
-    .then((response) => response.json())
-    .then((user) => callback(user));
+function getOrders(username, callback) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      console.log(`Fetched orders for ${username}`);
+      const orders = ["order_101", "order_102"];
+      if (typeof callback === "function") callback(orders);
+      resolve(orders);
+    }, 1000);
+  });
 }
 
-function getAddress(userId, callback) {
-  // Make an API request to get the user's address
-  return fetch(`https://api.example.com/users/${userId}/address`)
-    .then((response) => response.json())
-    .then((address) => callback(address));
+function getOrderDetails(orderId, callback) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      console.log(`Fetched details for ${orderId}`);
+      const details = { id: orderId, item: "Mechanical Keyboard", price: 120 };
+      if (typeof callback === "function") callback(details);
+      resolve(details);
+    }, 1000);
+  });
 }
 
-// ===========This is the callback hell code========
-getArticles(20, (articles) => {
-  getUserData(articles[0].userId, (user) => {
-    getAddress(user.id, (address) => {
-      // Do something with the articles, user, and address
+// ======================================== The Problem: Callback Hell ========================================
+// Notice the deep nesting (Pyramid of Doom):
+
+getUser(1, (user) => {
+  getOrders(user.username, (orders) => {
+    getOrderDetails(orders[0], (details) => {
+      console.log("Callback Hell Result:", details);
     });
   });
 });
 
-/* 
-The above code is an example of callback hell because it uses nested callbacks. The getArticles function calls 
-the getUserData function, which calls the getAddress function. The getAddress function is dependent on the 
-result of the getUserData function, which is dependent on the result of the getArticles function. This 
-creates a pyramid-shaped structure of callbacks, which can be difficult to read and maintain
-
-
-We can solve this problem in two ways using Promises and Async/Await keyword.
-
-Let's see solution firstly using Promises -
- */
-
-// This is the promises code
-
-const articlesPromise = getArticles();
-
-const userDataPromise = articlesPromise.then((articles) =>
-  getUserData(articles[0].userId)
-);
-
-const addressPromise = userDataPromise.then((user) =>
-  getAddress(user.id)
-);
-
-Promise.all([articlesPromise, userDataPromise, addressPromise]).then(
-  ([articles, user, address]) => {
-    console.log(articles, user, address);
-  }
-);
-
-function getArticles(numArticles = 20) {
-  return fetch(`https://api.example.com/articles?num=${numArticles}`)
-    .then((response) => response.json());
-}
-
-function getUserData(userId) {
-  return fetch(`https://api.example.com/users/${userId}`)
-    .then((response) => response.json());
-}
-
-function getAddress(userId) {
-  return fetch(`https://api.example.com/users/${userId}/address`)
-    .then((response) => response.json());
-}
 
 /* 
-This code uses promises to represent the asynchronous operations of getting the articles, user, and address.
-This makes the code more sequential and easier to read and maintain.
-
-Here is how to solve this problem using async/await:
+======================================== Solutions ========================================
+We can solve this problem in two ways:
+1. Using Promises (.then / .catch chaining)
+2. Using Async / Await keywords
 */
 
-// Async/await
-async function getArticles() {
-  const response = await fetch("https://api.example.com/articles?num=20");
-  const articles = await response.json();
-  return articles;
+// ======================================== 1. Solution using Promises ========================================
+// Flat chain, eliminates deep nesting and handles errors in a single .catch block
+getUser(1)
+  .then((user) => {
+    return getOrders(user.username);
+  })
+  .then((orders) => {
+    return getOrderDetails(orders[0]);
+  })
+  .then((details) => {
+    console.log("Final Result:", details);
+  })
+  .catch((error) => {
+    console.error("An error occured:", error);
+  });
+
+// ======================================== 2. Solution using Async / Await ========================================
+// Looks and behaves like synchronous code, easiest to read and maintain
+async function fetchUserOrderDetails(userId) {
+  try {
+    const user = await getUser(userId);
+    const orders = await getOrders(user.username);
+    const details = await getOrderDetails(orders[0]);
+    console.log("Async/Await Solution Result:", details);
+  } catch (error) {
+    console.error("Async/Await Error:", error);
+  }
 }
 
-async function getUserData(userId) {
-  const response = await fetch(`https://api.example.com/users/${userId}`);
-  const user = await response.json();
-  return user;
-}
-
-async function getAddress(userId) {
-  const response = await fetch(
-    `https://api.example.com/users/${userId}/address`
-  );
-  const address = await response.json();
-  return address;
-}
-
-async function main() {
-  const articles = await getArticles();
-  const user = await getUserData(articles[0].userId);
-  const address = await getAddress(user.id);
-
-  // Do something with the articles, user, and address
-}
-
-main();
-
-//  "async/await" is the modern, more easier to read and maintain solution to the callback-hell problem.
+// To test the Async/Await solution, uncomment the line below:
+// fetchUserOrderDetails(1);
